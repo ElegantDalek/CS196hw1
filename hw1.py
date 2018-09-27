@@ -4,12 +4,11 @@
 # Due September 24th, 2018
 #
 
-import json
-import csv
 import numpy as np
 import math
 
 def histogram_times(filename):
+    import csv
     dataIndex = 10
     with open(filename) as f:
         csv_reader = csv.reader(f)
@@ -26,6 +25,7 @@ def histogram_times(filename):
     return airplane_fatalities
 
 def weigh_pokemons(filename, weight):
+    import json
     with open(filename) as f:
         pokedex = json.load(f)
     correctWeight = []
@@ -35,6 +35,7 @@ def weigh_pokemons(filename, weight):
     return correctWeight
 
 def single_type_candy_count(filename):
+    import json
     with open(filename) as f:
         pokedex = json.load(f)
     numCandies = 0
@@ -44,6 +45,7 @@ def single_type_candy_count(filename):
     return numCandies
 
 def reflections_and_projections(points):
+    import numpy as np
     '''
     TODO: WRITE TEST CASES TO TEST
     '''
@@ -69,15 +71,14 @@ def reflections_and_projections(points):
     points = np.matmul(projection_matrix, points) * coefficient
     return points
 
-'''
 def normalize(image):
+    import numpy as np
     max = np.amax(np.array([np.amax(x) for x in range(len(image))]))
     min = np.amin(np.array([np.amin(x) for x in range(len(image))]))
     coefficient = 255 / (max - min)
     image -= min
     image *= coefficient
     return image
-'''
 
 def sigmoid_normalize(image, a):
     return 255*(1+e**((-a)**-1*image-128))**-1
