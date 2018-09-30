@@ -39,9 +39,10 @@ def single_type_candy_count(filename):
     with open(filename) as f:
         pokedex = json.load(f)
     numCandies = 0
-    for candy in pokedex['pokemon']:
-        for item in candy:
+    for pokemon in pokedex['pokemon']:
+        if pokemon['candy'] != "None":
             numCandies += 1
+        print(pokemon['name'] + ": " + pokemon['candy'])
     return numCandies
 
 def reflections_and_projections(points):
@@ -86,11 +87,11 @@ def sigmoid_normalize(image, a):
 #test_array = np.array([[1, 2], [3, 4]])
 print(histogram_times('airplane_crashes.csv'))
 #print(weigh_pokemons('pokedex.json', 10.0))
-#print(single_type_candy_count('pokedex.json'))
+print(single_type_candy_count('pokedex.json'))
 #reflections_and_projections(test_array)
 
 
 #b = [x,y for x in range(10) for y in range(10) if y % 2 == 0]
 
-image_array = np.arange(32 ** 2).reshape(32, 32)
+#image_array = np.arange(32 ** 2).reshape(32, 32)
 #print(normalize(image_array))
