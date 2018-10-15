@@ -13,11 +13,23 @@ def lyrics_word_count_easy(artist, song, phrase):
 
 def lyrics_word_count(artist, phrase):
     params = {
-        'api_key': api_keys['music-graph-key'],
-        'name': artist
+        'apikey': api_keys['client_token'],
+        'q_artist': artist,
+        'q': phrase
     }
-    r = requests.get('https://api.musicgraph.com/api/v2/artist/', params=params) 
-    return r.json()
+    r = requests.get('http://api.musixmatch.com/ws/1.1/track.search', params=params)
+    if r.status_code == 200:
+        album_list = r.json()['message']['body']['track_list']
+        phrase_count = 0
+        for album in album_list:
+            print(album['track']['track_name'])
+            word_count = lyrics_word_count_easy(artist, album['track']['track_name'], phrase)
+            print(word_count)
+            if word_count != -1:
+                phrase_count += word_count
+    else:
+        return -1
+    return phrase_count
 
 def visualize():
     x = np.array([ 0., 1., 2., 3., 4., 5., 6., 7., 8., 9.,10., 11., 12., 13., 14., 15., 16., 17., 18., 19., 20., 21., 22., 23., 24., 25., 26., 27., 28., 29.])
@@ -45,6 +57,6 @@ def visualize():
 
 with open('api_keys.json') as f:
     api_keys = json.loads(f.read())
-print(visualize())
-#print(lyrics_word_count('Rick Astley', "never gonna give you up"))
+#print(visualize())
+print(lyrics_word_count('Rick Astley', "never"))
 #print(lyrics_word_count_easy('rick astley', 'never gonna give you up', 'never'))
