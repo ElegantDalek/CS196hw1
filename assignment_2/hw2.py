@@ -15,7 +15,9 @@ def lyrics_word_count(artist, phrase):
     params = {
         'apikey': api_keys['client_token'],
         'q_artist': artist,
-        'q': phrase
+        'q': phrase,
+        'page_size': 100,
+        's_track_rating': 'desc'
     }
     r = requests.get('http://api.musixmatch.com/ws/1.1/track.search', params=params)
     if r.status_code == 200:
